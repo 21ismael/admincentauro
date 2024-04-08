@@ -70,7 +70,7 @@ export default function AddUser({ data, setData }) {
                         <input
                             type="text"
                             className="form-control"
-                            name="lastname"
+                            name="lastName"
                             value={formData.lastName}
                             onChange={handleChange}
                         />

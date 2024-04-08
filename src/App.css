@@ -61,9 +61,10 @@ main {
 }
 
 main #container {
-    width: auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
 }
 
@@ -75,7 +76,7 @@ main #container {
 
 table {
     border-collapse: collapse;
-    width: 700px;
+    width: 50%;
     border: 3px solid #0C3675;
     font-weight: 700;
 }

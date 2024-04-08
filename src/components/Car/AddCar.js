@@ -3,22 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { CarService } from '../../services/CarsService';
 import OfficeService from '../../services/OfficeService';
 
-function AddCar({ data, setData }) {
-
-    const officeService = new OfficeService();
-    const [offices, setOffices] = useState();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const officeData = await officeService.getAllOffices();
-                setOffices(officeData);
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, []);
+function AddCar({ data, setData, offices }) {
 
     const [show, setShow] = useState(false);
 
@@ -26,7 +11,8 @@ function AddCar({ data, setData }) {
         brand: '',
         model: '',
         licensePlate: '',
-        office: ''
+        dailyRate: '', 
+        officeId: 0
     });
 
     const handleClose = () => setShow(false);
@@ -44,34 +30,19 @@ function AddCar({ data, setData }) {
         console.log(formData)
         try {
             const carService = new CarService();
-
-            let obj = {
-                "brand": "string",
-                "model": "string",
-                "licensePlate": "string",
-                "officeId": 0,
-                "office": {
-                  "id": 0,
-                  "name": "string",
-                  "country": "string"
-                }
-              }
-
-            const response = await carService.addCar(obj);
+            const response = await carService.addCar(formData);
             if (response.ok) {
-                //const responseBody = await response.text();
-                //const updatedCar = responseBody ? JSON.parse(responseBody) : {};
-                //const updatedData = data.map(item => (item.id === updatedCar.id ? updatedCar : item));
                 const updatedCars = await carService.getAllCars();
                 setData(updatedCars);
-                setFormData({ brand: '', model: '', licensePlate: '', office: '' });
+                setFormData({ brand: '', model: '', licensePlate: '', dailyRate: '', officeId: 0 });
                 handleClose();
-                console.log(obj);
             } else {
                 throw new Error('Failed to add car');
             }
+
             //console.log(data); 
             //con setData([formData, ...data]); hay error
+
         } catch (error) {
             console.error('Error adding car:', error);
         }
@@ -94,6 +65,7 @@ function AddCar({ data, setData }) {
                 </Modal.Header>
                 <Modal.Body>
                     <form>
+
                         <div className="form-group">
                             <label>Brand:</label>
                             <input
@@ -104,6 +76,7 @@ function AddCar({ data, setData }) {
                                 onChange={handleChange}
                             />
                         </div>
+
                         <div className="form-group">
                             <label>Model:</label>
                             <input
@@ -114,6 +87,7 @@ function AddCar({ data, setData }) {
                                 onChange={handleChange}
                             />
                         </div>
+
                         <div className="form-group">
                             <label>License Plate:</label>
                             <input
@@ -124,18 +98,34 @@ function AddCar({ data, setData }) {
                                 onChange={handleChange}
                             />
                         </div>
-                        <select className='form-control'
-                            name="office"
-                            value={formData.office}
-                            onChange={handleChange}
-                        >
-                            <option>Seleccione una oficina</option>
-                            {offices && offices.map((office) => (
-                                <option key={office.id} value={office.id}>
-                                    {office.name}
-                                </option>
-                            ))}
-                        </select>
+
+                        <div className="form-group">
+                            <label>Daily Rate:</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="dailyRate"
+                                value={formData.dailyRate}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <label>
+                            Choose an office:
+                            <select className='form-select'
+                                name="officeId"
+                                value={formData.officeId}
+                                onChange={handleChange}
+                            >
+                                <option value={0}>-- Office --</option> 
+                                {offices && offices.map((office) => (
+                                    <option key={office.id} value={office.id}>
+                                        {office.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -152,3 +142,7 @@ function AddCar({ data, setData }) {
 }
 
 export default AddCar;
+
+/*const responseBody = await response.text();
+const updatedCar = responseBody ? JSON.parse(responseBody) : {};
+const updatedData = data.map(item => (item.id === updatedCar.id ? updatedCar : item));*/

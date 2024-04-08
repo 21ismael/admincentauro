@@ -3,13 +3,16 @@ import AddCar from './AddCar.js';
 import { CarService } from '../../services/CarsService.js';
 import { EditCar } from './EditCar.js';
 import addIcon from '../../assets/images/add.svg';
+import OfficeService from '../../services/OfficeService.js';
 
 
 export default function CarComponent() {
 
     const carService = new CarService();
-
     const [data, setData] = useState(null);
+
+    const officeService = new OfficeService();
+    const [offices, setOffices] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,6 +21,10 @@ export default function CarComponent() {
                 const carsData = await carService.getAllCars();
                 setData(carsData);
                 console.log(carsData);
+
+                const officeData = await officeService.getAllOffices();
+                setOffices(officeData);
+
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -39,7 +46,9 @@ export default function CarComponent() {
 
     return (
         <div id='container'>
-            <AddCar data={data} setData={setData} />
+            <div style={{ width: '50%' }}>
+                <AddCar data={data} setData={setData} offices={offices} />
+            </div>
             <table id="carTable">
                 <thead>
                     <tr>
@@ -48,6 +57,7 @@ export default function CarComponent() {
                         <th>Model</th>
                         <th>License Plate</th>
                         <th>Office</th>
+                        <th>Daily Rate</th>
                         <th>Delete</th>
                         <th>Edit</th>
                     </tr>
@@ -59,14 +69,15 @@ export default function CarComponent() {
                             <td>{car.brand}</td>
                             <td>{car.model}</td>
                             <td>{car.licensePlate}</td>
-                            <td>{car.office?.name || 'No Office'}</td>
+                            <td>{car.dailyRate}€</td>
+                            <td>{car.office?.name}</td>
                             <td style={{ width: "60px" }}>
                                 <button className="delete-btn" onClick={() => deleteCar(car.id)}>
                                     <img src={addIcon} alt='add icon' />
                                 </button>
                             </td>
                             <td style={{ width: "60px" }}>
-                                <EditCar data={data} setData={setData} car={car} />
+                                <EditCar data={data} setData={setData} car={car} offices={offices} />
                             </td>
                         </tr>
                     ))}

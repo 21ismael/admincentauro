@@ -44,7 +44,7 @@ export default function User() {
                         <th>ID</th>
                         <th>Name</th>
                         <th>LastName</th>
-                        <th>Identtity Number</th>
+                        <th>Identity Number</th>
                         <th>Delete</th>
                         <th>Edit</th>
                     </tr>

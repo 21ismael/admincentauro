@@ -13,7 +13,7 @@ export default function Header() {
                         <li><NavLink to='./users'>Users</NavLink></li>
                         <li><NavLink to='./offices'>Offices</NavLink></li>
                         <li><NavLink to='./reservations'>Reservations</NavLink></li>
-                        <li><NavLink to='./centauro' className={"web-btn"}>Accede a la web ↷</NavLink></li>
+                        <li><NavLink to='./centauro' className={"web-btn"}>Go to the website ↷</NavLink></li>
                     </ul>
                 </nav>
             </header>

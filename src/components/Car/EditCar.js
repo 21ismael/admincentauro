@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import editIcon from '../../assets/images/edit.svg';
 import { CarService } from '../../services/CarsService';
 
-export const EditCar = ({ car, data, setData }) => {
+export const EditCar = ({ car, data, setData, offices }) => {
 
     const [show, setShow] = useState(false);
 
@@ -11,7 +11,8 @@ export const EditCar = ({ car, data, setData }) => {
         id: car.id,
         brand: car.brand,
         model: car.model,
-        licensePlate: car.licensePlate
+        licensePlate: car.licensePlate,
+        officeId: car.officeId
     });
 
     const handleClose = () => setShow(false);
@@ -32,7 +33,7 @@ export const EditCar = ({ car, data, setData }) => {
             const response = await carService.putCar(formData.id, formData);
 
             if (response.ok) {
-                const responseBody = await response.text();
+                //const responseBody = await response.text();
                 //const updatedCar = responseBody ? JSON.parse(responseBody) : {};
                 //const updatedData = data.map(item => (item.id === updatedCar.id ? updatedCar : item));
                 const updatedCars = await carService.getAllCars();
@@ -62,6 +63,7 @@ export const EditCar = ({ car, data, setData }) => {
             </Modal.Header>
             <Modal.Body>
                 <form>
+
                     <div className="form-group">
                         <label>Brand:</label>
                         <input
@@ -72,6 +74,7 @@ export const EditCar = ({ car, data, setData }) => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="form-group">
                         <label>Model:</label>
                         <input
@@ -82,6 +85,7 @@ export const EditCar = ({ car, data, setData }) => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="form-group">
                         <label>License Plate:</label>
                         <input
@@ -92,6 +96,23 @@ export const EditCar = ({ car, data, setData }) => {
                             onChange={handleChange}
                         />
                     </div>
+
+                    <label>
+                        Choose an office:
+                        <select className='form-control'
+                            name="officeId"
+                            value={formData.officeId}
+                            onChange={handleChange}
+                        >
+                            <option value={0}>-- Office --</option>
+                            {offices && offices.map((office) => (
+                                <option key={office.id} value={office.id}>
+                                    {office.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
                 </form>
             </Modal.Body>
             <Modal.Footer>
