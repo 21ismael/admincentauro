@@ -76,7 +76,7 @@ main #container {
 
 table {
     border-collapse: collapse;
-    width: 50%;
+    width: 70%;
     border: 3px solid #0C3675;
     font-weight: 700;
 }
@@ -116,7 +116,10 @@ main th {
 }
 
 .add-btn {
-    width: 120px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
     height: 30px;
     background-color: #FFCD00;
     color: #0C3675;
@@ -170,3 +173,56 @@ main th {
 .close-btn:hover {
     background-color: lightgray;
 }
+
+/* ------- */
+.main-add-btn {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background-color: #FFCD00;
+    color: #0C3675;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .main-add-btn, .btn_icon, .btn_text {
+    transition: all 0.3s;
+  }
+  
+  .main-add-btn .btn_text {
+    transform: translateX(30px);
+    font-weight: 700;
+  }
+  
+  .main-add-btn .btn_icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .main-add-btn .svg {
+    width: 30px;
+    stroke: #0C3675;
+  }
+ 
+  .main-add-btn:hover .btn_text {
+    color: transparent;
+  }
+  
+  .main-add-btn:hover .btn_icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .main-add-btn:active {
+    background-color: #ffc21c;
+  }

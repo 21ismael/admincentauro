@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import editIcon from '../../assets/images/edit.svg';
-import { CarService } from '../../services/CarsService';
+import CarService from '../../services/CarsService';
 
 export const EditCar = ({ car, data, setData, offices }) => {
 
@@ -12,6 +12,7 @@ export const EditCar = ({ car, data, setData, offices }) => {
         brand: car.brand,
         model: car.model,
         licensePlate: car.licensePlate,
+        dailyRate: car.dailyRate,
         officeId: car.officeId
     });
 
@@ -96,6 +97,18 @@ export const EditCar = ({ car, data, setData, offices }) => {
                             onChange={handleChange}
                         />
                     </div>
+
+                    <div className="form-group">
+                            <label>Daily Rate:</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="dailyRate"
+                                value={formData.dailyRate}
+                                min={0}
+                                onChange={handleChange}
+                            />
+                        </div>
 
                     <label>
                         Choose an office:

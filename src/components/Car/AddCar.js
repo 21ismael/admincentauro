@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { CarService } from '../../services/CarsService';
+import CarService from '../../services/CarsService';
 import OfficeService from '../../services/OfficeService';
 
 function AddCar({ data, setData, offices }) {
@@ -11,7 +11,7 @@ function AddCar({ data, setData, offices }) {
         brand: '',
         model: '',
         licensePlate: '',
-        dailyRate: '', 
+        dailyRate: '',
         officeId: 0
     });
 
@@ -50,8 +50,9 @@ function AddCar({ data, setData, offices }) {
 
     return (
         <>
-            <button className="add-btn" onClick={handleShow}>
-                + Add Car
+            <button type="button" className="main-add-btn" onClick={handleShow}>
+                <span className="btn_text">Add Car</span>
+                <span className="btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
             </button>
 
             <Modal
@@ -106,6 +107,7 @@ function AddCar({ data, setData, offices }) {
                                 className="form-control"
                                 name="dailyRate"
                                 value={formData.dailyRate}
+                                min={0}
                                 onChange={handleChange}
                             />
                         </div>
@@ -117,7 +119,7 @@ function AddCar({ data, setData, offices }) {
                                 value={formData.officeId}
                                 onChange={handleChange}
                             >
-                                <option value={0}>-- Office --</option> 
+                                <option value={0}>-- Office --</option>
                                 {offices && offices.map((office) => (
                                     <option key={office.id} value={office.id}>
                                         {office.name}

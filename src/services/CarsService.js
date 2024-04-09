@@ -1,9 +1,17 @@
-export class CarService {
+class CarService {
     SERVER = "http://localhost:5155/api";
 
     async getAllCars() {
         const response = await fetch(`${this.SERVER}/car`);
 
+        if (!response.ok) {
+            throw new Error('Failed to get all the cars');
+        }
+        return response.json();
+    }
+
+    async getCarByLicensePlate(licensePlate) {
+        const response = await fetch(`${this.SERVER}/car/LicensePlate/${licensePlate}`);
         if (!response.ok) {
             throw new Error('Failed to get all the cars');
         }
@@ -72,3 +80,5 @@ export class CarService {
         return response.json();
     }
 }
+
+export default CarService; 

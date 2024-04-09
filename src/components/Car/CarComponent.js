@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddCar from './AddCar.js';
-import { CarService } from '../../services/CarsService.js';
+import CarService from '../../services/CarsService.js';
 import { EditCar } from './EditCar.js';
 import addIcon from '../../assets/images/add.svg';
 import OfficeService from '../../services/OfficeService.js';
@@ -56,8 +56,8 @@ export default function CarComponent() {
                         <th>Brand</th>
                         <th>Model</th>
                         <th>License Plate</th>
-                        <th>Office</th>
                         <th>Daily Rate</th>
+                        <th>Office</th>
                         <th>Delete</th>
                         <th>Edit</th>
                     </tr>
