@@ -10,6 +10,14 @@ export default class UserService {
         return response.json();
     }
 
+    async getUserByIdentityNumber(identityNumber) {
+        const response = await fetch(`${this.SERVER}/user/identity/${identityNumber}`);
+        if (!response.ok) {
+            throw new Error(`Failed to get user with identity number ${identityNumber}`);
+        }
+        return response.json();
+    }
+
     async addUser(formData) {
         try {
             const response = await fetch(`${this.SERVER}/user`, {

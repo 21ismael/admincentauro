@@ -50,10 +50,12 @@ function AddCar({ data, setData, offices }) {
 
     return (
         <>
-            <button type="button" className="main-add-btn" onClick={handleShow}>
-                <span className="btn_text">Add Car</span>
-                <span className="btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-            </button>
+            <div className='button-container'>
+                <button type="button" className="main-add-btn" onClick={handleShow}>
+                    <span className="btn_text">Add Car</span>
+                    <span className="btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+                </button>
+            </div>
 
             <Modal
                 show={show}

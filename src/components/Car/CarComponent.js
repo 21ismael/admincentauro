@@ -46,43 +46,43 @@ export default function CarComponent() {
 
     return (
         <div id='container'>
-            <div style={{ width: '50%' }}>
-                <AddCar data={data} setData={setData} offices={offices} />
-            </div>
-            <table id="carTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>License Plate</th>
-                        <th>Daily Rate</th>
-                        <th>Office</th>
-                        <th>Delete</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data && data.map(car => (
-                        <tr key={car.id}>
-                            <td>{car.id}</td>
-                            <td>{car.brand}</td>
-                            <td>{car.model}</td>
-                            <td>{car.licensePlate}</td>
-                            <td>{car.dailyRate}€</td>
-                            <td>{car.office?.name}</td>
-                            <td style={{ width: "60px" }}>
-                                <button className="delete-btn" onClick={() => deleteCar(car.id)}>
-                                    <img src={addIcon} alt='add icon' />
-                                </button>
-                            </td>
-                            <td style={{ width: "60px" }}>
-                                <EditCar data={data} setData={setData} car={car} offices={offices} />
-                            </td>
+            <AddCar data={data} setData={setData} offices={offices} />
+            <div className='table-container'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>License Plate</th>
+                            <th>Daily Rate</th>
+                            <th>Office</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {data && data.map(car => (
+                            <tr key={car.id}>
+                                <td>{car.id}</td>
+                                <td>{car.brand}</td>
+                                <td>{car.model}</td>
+                                <td>{car.licensePlate}</td>
+                                <td>{car.dailyRate}€</td>
+                                <td>{car.office?.name}</td>
+                                <td style={{ width: "60px" }}>
+                                    <button className="delete-btn" onClick={() => deleteCar(car.id)}>
+                                        <img src={addIcon} alt='add icon' />
+                                    </button>
+                                </td>
+                                <td style={{ width: "60px" }}>
+                                    <EditCar data={data} setData={setData} car={car} offices={offices} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

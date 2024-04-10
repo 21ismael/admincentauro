@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import editIcon from '../../assets/images/edit.svg';
 import ReservationService from '../../services/ReservationService';
+import formatDate from '../../utils/functions';
 import CarsService from '../../services/CarsService';
 import UserService from '../../services/UserService';
 
-export default function AddReservation({ data, setData }) {
+export default function EditReservation({ reservation, data, setData }) {
 
     const carService = new CarsService();
     const userService = new UserService();
+    const reservationService = new ReservationService();
 
-    const [postData, setPostData] = useState({
+    const [putData, setPutData] = useState({
+        reservationId: '', 
         carId: '',
         userId: '',
         officeId: '',
@@ -18,14 +22,14 @@ export default function AddReservation({ data, setData }) {
     });
 
     useEffect(() => {
-        console.log(postData);
-    }, [postData]);
+        console.log(putData);
+    }, [putData]);
 
     const [formData, setFormData] = useState({
-        carLicensePlate: '',
-        userIdentityNumber: '',
-        startDate: '',
-        endDate: ''
+        licensePlate: reservation.car.licensePlate,
+        identityNumber: reservation.user.identityNumber,
+        startDate: reservation.startDate,
+        endDate: reservation.endDate
     });
 
     const [show, setShow] = useState(false);
@@ -41,11 +45,13 @@ export default function AddReservation({ data, setData }) {
     };
 
     const handleSubmit = async () => {
+        console.log(formData)
         try {
-            const userData = await userService.getUserByIdentityNumber(formData.userIdentityNumber);
-            const carData = await carService.getCarByLicensePlate(formData.carLicensePlate);
+            const userData = await userService.getUserByIdentityNumber(formData.identityNumber);
+            const carData = await carService.getCarByLicensePlate(formData.licensePlate);
 
-            const postData = {
+            const putData = {
+                reservationId: reservation.reservationId, 
                 carId: carData.id,
                 userId: userData.id,
                 officeId: carData.officeId,
@@ -53,37 +59,27 @@ export default function AddReservation({ data, setData }) {
                 endDate: formData.endDate
             };
 
-            console.log("Post Data:", postData);
+            console.log("Put Data:", putData);
 
-            const reservationService = new ReservationService();
-            const response = await reservationService.addReservation(postData);
+            const response = await reservationService.putReservation(reservation.reservationId, putData);
 
             if (response.ok) {
                 const updatedReservations = await reservationService.getAllReservations();
                 setData(updatedReservations);
-                setFormData({
-                    carLicensePlate: '',
-                    userIdentityNumber: '',
-                    startDate: '',
-                    endDate: ''
-                });
                 handleClose();
             } else {
-                throw new Error('Failed to add reservation');
+                throw new Error('Failed to edit reservation');
             }
-            
+
         } catch (error) {
-            console.error('Error adding reservation:', error);
+            console.error('Error editing reservation:', error);
         }
-    }
+    };
 
     return <>
-        <div className='button-container'>
-            <button type="button" className="main-add-btn" onClick={handleShow}>
-                <span className="btn_text">Add</span>
-                <span className="btn_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-            </button>
-        </div>
+        <button className="edit-btn" onClick={handleShow}>
+            <img src={editIcon} alt='edit icon' />
+        </button>
 
         <Modal
             show={show}
@@ -92,7 +88,7 @@ export default function AddReservation({ data, setData }) {
             keyboard={false}
         >
             <Modal.Header closeButton>
-                <Modal.Title>Add Reservation</Modal.Title>
+                <Modal.Title>Edit Reservation</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>
@@ -101,8 +97,8 @@ export default function AddReservation({ data, setData }) {
                         <input
                             type="text"
                             className="form-control"
-                            name="carLicensePlate"
-                            value={formData.carLicensePlate}
+                            name="licensePlate"
+                            value={formData.licensePlate}
                             onChange={handleChange}
                         />
                     </div>
@@ -111,8 +107,8 @@ export default function AddReservation({ data, setData }) {
                         <input
                             type="text"
                             className="form-control"
-                            name="userIdentityNumber"
-                            value={formData.userIdentityNumber}
+                            name="identityNumber"
+                            value={formData.identityNumber}
                             onChange={handleChange}
                         />
                     </div>
@@ -122,7 +118,7 @@ export default function AddReservation({ data, setData }) {
                             type="date"
                             className="form-control"
                             name="startDate"
-                            value={formData.startDate}
+                            value={formatDate(formData.startDate)}
                             onChange={handleChange}
                         />
                     </div>
@@ -132,7 +128,7 @@ export default function AddReservation({ data, setData }) {
                             type="date"
                             className="form-control"
                             name="endDate"
-                            value={formData.endDate}
+                            value={formatDate(formData.endDate)}
                             onChange={handleChange}
                         />
                     </div>
@@ -143,9 +139,18 @@ export default function AddReservation({ data, setData }) {
                     Close
                 </button>
                 <button className='add-btn' onClick={handleSubmit}>
-                    Add Reservation
+                    Edit Rservation
                 </button>
             </Modal.Footer>
         </Modal>
     </>
 }
+
+/*
+    "reservationId": 1,
+    "carId": 1,
+    "userId": 6,
+    "officeId": 1,
+    "startDate": "2024-04-10T10:00:00",
+    "endDate": "2024-04-15T12:00:00"
+*/

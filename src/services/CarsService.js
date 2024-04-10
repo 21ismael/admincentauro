@@ -13,7 +13,7 @@ class CarService {
     async getCarByLicensePlate(licensePlate) {
         const response = await fetch(`${this.SERVER}/car/LicensePlate/${licensePlate}`);
         if (!response.ok) {
-            throw new Error('Failed to get all the cars');
+            throw new Error(`Failed to get car with plate number ${licensePlate}`);
         }
         return response.json();
     }

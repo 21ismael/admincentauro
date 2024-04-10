@@ -37,34 +37,36 @@ export default function OfficeComponent() {
     return <>
         <div id='container'>
             <AddOffice data={data} setData={setData} />
-            <table id="officeTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>Delete</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data && data.map(office => (
-                        <tr key={office.id}>
-                            <td>{office.id}</td>
-                            <td>{office.name}</td>
-                            <td>{office.country}</td>
-                            <td style={{ width: "60px" }}>
-                                <button className="delete-btn" onClick={() => deleteOffice(office.id)}>
-                                    <img src={addIcon} alt='add icon' />
-                                </button>
-                            </td>
-                            <td style={{ width: "60px" }}>
-                                <EditOffice office={office} data={data} setData={setData} />
-                            </td>
+            <div className='table-container'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {data && data.map(office => (
+                            <tr key={office.id}>
+                                <td>{office.id}</td>
+                                <td>{office.name}</td>
+                                <td>{office.country}</td>
+                                <td style={{ width: "60px" }}>
+                                    <button className="delete-btn" onClick={() => deleteOffice(office.id)}>
+                                        <img src={addIcon} alt='add icon' />
+                                    </button>
+                                </td>
+                                <td style={{ width: "60px" }}>
+                                    <EditOffice office={office} data={data} setData={setData} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </>
 }

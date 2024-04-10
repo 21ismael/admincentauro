@@ -10,14 +10,14 @@ export default class ReservationService {
         return response.json();
     }
 
-    async addReservation(formData) {
+    async addReservation(postData) {
         try {
             const response = await fetch(`${this.SERVER}/reservation`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(postData),
             });
 
             if (!response.ok) {
@@ -31,6 +31,27 @@ export default class ReservationService {
             throw error;
         }
     }
+
+    async putReservation(reservationId, formData) {
+        try {
+            const response = await fetch(`${this.SERVER}/reservation/${reservationId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to update reservation');
+            }
+    
+            return response;
+        } catch (error) {
+            console.error('Error updating reservation:', error);
+            throw error;
+        }
+    }    
 
     async deleteReservation(reservationId) {
         const response = await fetch(`${this.SERVER}/reservation/${reservationId}`, {
