@@ -13,7 +13,7 @@ export default function Header() {
                         <li><NavLink to='./users'>Users</NavLink></li>
                         <li><NavLink to='./offices'>Offices</NavLink></li>
                         <li><NavLink to='./reservations'>Reservations</NavLink></li>
-                        <li><NavLink to='./centauro' className={"web-btn"}>Go to the website ↷</NavLink></li>
+                        <li><a href='https://www.centauro.net/' target='_blank'>Go to the website ↷</a></li>
                     </ul>
                 </nav>
             </header>
