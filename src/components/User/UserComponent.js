@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import addIcon from '../../assets/images/add.svg';
+import deleteIcon from '../../assets/images/delete.svg';
 import UserService from '../../services/UserService';
 import AddUser from './AddUser';
 import EditUser from './EditUser';
@@ -59,7 +59,7 @@ export default function User() {
                                 <td>{user.identityNumber}</td>
                                 <td style={{ width: "60px" }}>
                                     <button className="delete-btn" onClick={() => deleteUser(user.id)}>
-                                        <img src={addIcon} alt='add icon' />
+                                        <img src={deleteIcon} alt='delete icon' />
                                     </button>
                                 </td>
                                 <td style={{ width: "60px" }}>

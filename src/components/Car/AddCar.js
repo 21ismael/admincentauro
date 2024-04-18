@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import CarService from '../../services/CarsService';
 import OfficeService from '../../services/OfficeService';
+import FleetService from '../../services/FleetService.js';
 
 function AddCar({ data, setData, offices }) {
 
@@ -11,9 +12,23 @@ function AddCar({ data, setData, offices }) {
         brand: '',
         model: '',
         licensePlate: '',
-        dailyRate: '',
         officeId: 0
     });
+
+    const fleetService = new FleetService();
+    const [fleet, setFleet] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const fleetData = await fleetService.getFleet();
+                setFleet(fleetData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -27,10 +42,14 @@ function AddCar({ data, setData, offices }) {
     };
 
     const handleSubmit = async () => {
-        console.log(formData)
         try {
             const carService = new CarService();
-            const response = await carService.addCar(formData);
+            const car = {
+                licensePlate: formData.licensePlate,
+                fleetId: formData.model,
+                officeId: formData.officeId
+            };
+            const response = await carService.addCar(car);
             if (response.ok) {
                 const updatedCars = await carService.getAllCars();
                 setData(updatedCars);
@@ -39,13 +58,10 @@ function AddCar({ data, setData, offices }) {
             } else {
                 throw new Error('Failed to add car');
             }
-
-            //console.log(data); 
-            //con setData([formData, ...data]); hay error
-
         } catch (error) {
             console.error('Error adding car:', error);
         }
+        console.log(formData);
     };
 
     return (
@@ -68,28 +84,39 @@ function AddCar({ data, setData, offices }) {
                 </Modal.Header>
                 <Modal.Body>
                     <form>
-
-                        <div className="form-group">
-                            <label>Brand:</label>
-                            <input
-                                type="text"
-                                className="form-control"
+                        <label>
+                            Choose a brand:
+                            <select className='form-select'
                                 name="brand"
                                 value={formData.brand}
                                 onChange={handleChange}
-                            />
-                        </div>
+                            >
+                                <option value="">-- Brand --</option>
+                                {[...new Set(fleet.map(car => car.brand))].map((brand, index) => (
+                                    <option key={index} value={brand}>
+                                        {brand}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
 
-                        <div className="form-group">
-                            <label>Model:</label>
-                            <input
-                                type="text"
-                                className="form-control"
+                        <label>
+                            Choose a model:
+                            <select className='form-select'
                                 name="model"
                                 value={formData.model}
                                 onChange={handleChange}
-                            />
-                        </div>
+                            >
+                                <option value="">-- Model --</option>
+                                {formData.brand && fleet
+                                    .filter(car => car.brand === formData.brand)
+                                    .map((car) => (
+                                        <option key={car.id} value={car.id}>
+                                            {car.model}
+                                        </option>
+                                    ))}
+                            </select>
+                        </label>
 
                         <div className="form-group">
                             <label>License Plate:</label>
@@ -98,18 +125,6 @@ function AddCar({ data, setData, offices }) {
                                 className="form-control"
                                 name="licensePlate"
                                 value={formData.licensePlate}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Daily Rate:</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="dailyRate"
-                                value={formData.dailyRate}
-                                min={0}
                                 onChange={handleChange}
                             />
                         </div>
@@ -146,7 +161,3 @@ function AddCar({ data, setData, offices }) {
 }
 
 export default AddCar;
-
-/*const responseBody = await response.text();
-const updatedCar = responseBody ? JSON.parse(responseBody) : {};
-const updatedData = data.map(item => (item.id === updatedCar.id ? updatedCar : item));*/

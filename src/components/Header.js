@@ -10,10 +10,11 @@ export default function Header() {
                     <img src={logo} alt="logo" />
                     <ul>
                         <li><NavLink to='./cars'>Cars</NavLink></li>
+                        <li><NavLink to='./fleet'>Fleet</NavLink></li>
                         <li><NavLink to='./users'>Users</NavLink></li>
                         <li><NavLink to='./offices'>Offices</NavLink></li>
                         <li><NavLink to='./reservations'>Reservations</NavLink></li>
-                        <li><a href='https://www.centauro.net/' target='_blank'>Go to the website ↷</a></li>
+                        <li><a href='http://localhost:3001' target='_blank'>Website ↷</a></li>
                     </ul>
                 </nav>
             </header>

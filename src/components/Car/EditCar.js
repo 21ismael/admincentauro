@@ -112,7 +112,7 @@ export const EditCar = ({ car, data, setData, offices }) => {
 
                     <label>
                         Choose an office:
-                        <select className='form-control'
+                        <select className='form-select'
                             name="officeId"
                             value={formData.officeId}
                             onChange={handleChange}

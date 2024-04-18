@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OfficeService from '../../services/OfficeService';
-import addIcon from '../../assets/images/add.svg';
+import deleteIcon from '../../assets/images/delete.svg';
 import AddOffice from './AddOffice';
 import { EditOffice } from './EditOffice';
 
@@ -56,7 +56,7 @@ export default function OfficeComponent() {
                                 <td>{office.country}</td>
                                 <td style={{ width: "60px" }}>
                                     <button className="delete-btn" onClick={() => deleteOffice(office.id)}>
-                                        <img src={addIcon} alt='add icon' />
+                                        <img src={deleteIcon} alt='delete icon' />
                                     </button>
                                 </td>
                                 <td style={{ width: "60px" }}>

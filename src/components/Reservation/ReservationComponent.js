@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReservationService from '../../services/ReservationService';
-import addIcon from '../../assets/images/add.svg';
+import deleteIcon from '../../assets/images/delete.svg';
 import formatDate from '../../utils/functions';
 import AddReservation from './AddReservation';
 import EditReservation from './EditReservation';
@@ -62,7 +62,7 @@ export default function ReservationComponent() {
                                 <td>{formatDate(reservation.endDate)}</td>
                                 <td style={{ width: "60px" }}>
                                     <button className="delete-btn" onClick={() => deleteReservation(reservation.reservationId)}>
-                                        <img src={addIcon} alt='add icon' />
+                                        <img src={deleteIcon} alt='delete icon' />
                                     </button>
                                 </td>
                                 <td style={{ width: "60px" }}>
