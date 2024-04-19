@@ -21,9 +21,9 @@ export default function EditReservation({ reservation, data, setData }) {
         endDate: ''
     });
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log(putData);
-    }, [putData]);
+    }, [putData]);*/
 
     const [formData, setFormData] = useState({
         licensePlate: reservation.car.licensePlate,

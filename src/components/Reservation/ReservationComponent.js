@@ -55,11 +55,11 @@ export default function ReservationComponent() {
                         {data && data.map(reservation => (
                             <tr key={reservation.reservationId}>
                                 <td>{reservation.reservationId}</td>
-                                <td>{`${reservation.car.brand}  ${reservation.car.model}`}</td>
+                                <td>{`${reservation.car.fleet.brand}  ${reservation.car.fleet.model}`}</td>
                                 <td>{`${reservation.user.name}  ${reservation.user.lastName}`}</td>
-                                <td>{reservation.office.name}</td>
-                                <td>{formatDate(reservation.startDate)}</td>
-                                <td>{formatDate(reservation.endDate)}</td>
+                                <td>{reservation.car.office.name}</td>
+                                <td>{formatDate(reservation.pickupDate)}</td>
+                                <td>{formatDate(reservation.returnDate)}</td>
                                 <td style={{ width: "60px" }}>
                                     <button className="delete-btn" onClick={() => deleteReservation(reservation.reservationId)}>
                                         <img src={deleteIcon} alt='delete icon' />

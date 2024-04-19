@@ -12,9 +12,8 @@ export default function AddReservation({ data, setData }) {
     const [postData, setPostData] = useState({
         carId: '',
         userId: '',
-        officeId: '',
-        startDate: '',
-        endDate: ''
+        pickupDate: '',
+        returnDate: ''
     });
 
     useEffect(() => {
@@ -24,8 +23,8 @@ export default function AddReservation({ data, setData }) {
     const [formData, setFormData] = useState({
         carLicensePlate: '',
         userIdentityNumber: '',
-        startDate: '',
-        endDate: ''
+        pickupDate: '',
+        returnDate: ''
     });
 
     const [show, setShow] = useState(false);
@@ -48,9 +47,8 @@ export default function AddReservation({ data, setData }) {
             const postData = {
                 carId: carData.id,
                 userId: userData.id,
-                officeId: carData.officeId,
-                startDate: formData.startDate,
-                endDate: formData.endDate
+                pickupDate: formData.pickupDate,
+                returnDate: formData.returnDate
             };
 
             console.log("Post Data:", postData);
@@ -64,8 +62,8 @@ export default function AddReservation({ data, setData }) {
                 setFormData({
                     carLicensePlate: '',
                     userIdentityNumber: '',
-                    startDate: '',
-                    endDate: ''
+                    pickupDate: '',
+                    returnDate: ''
                 });
                 handleClose();
             } else {
@@ -121,8 +119,8 @@ export default function AddReservation({ data, setData }) {
                         <input
                             type="date"
                             className="form-control"
-                            name="startDate"
-                            value={formData.startDate}
+                            name="pickupDate"
+                            value={formData.pickupDate}
                             onChange={handleChange}
                         />
                     </div>
@@ -131,8 +129,8 @@ export default function AddReservation({ data, setData }) {
                         <input
                             type="date"
                             className="form-control"
-                            name="endDate"
-                            value={formData.endDate}
+                            name="returnDate"
+                            value={formData.returnDate}
                             onChange={handleChange}
                         />
                     </div>
