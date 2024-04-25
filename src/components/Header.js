@@ -6,7 +6,7 @@ export default function Header() {
     return (
         <>
             <header>
-                <nav>
+                <nav className='container'>
                     <img src={logo} alt="logo" />
                     <ul>
                         <li><NavLink to='./cars'>Cars</NavLink></li>
@@ -14,7 +14,6 @@ export default function Header() {
                         <li><NavLink to='./users'>Users</NavLink></li>
                         <li><NavLink to='./offices'>Offices</NavLink></li>
                         <li><NavLink to='./reservations'>Reservations</NavLink></li>
-                        <li><a href='http://localhost:3001' target='_blank'>Website ↷</a></li>
                     </ul>
                 </nav>
             </header>

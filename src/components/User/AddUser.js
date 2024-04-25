@@ -26,6 +26,7 @@ export default function AddUser({ data, setData }) {
         try {
             const userService = new UserService();
             const response = await userService.addUser(formData);
+            console.log(response)
             if (response.ok) {
                 const updatedUsers = await userService.getAllUsers();
                 setData(updatedUsers);
