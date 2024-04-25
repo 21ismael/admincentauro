@@ -78,7 +78,7 @@ export default function AddFleetCar({ data, setData }) {
         }
     };
 
-    return <>
+    return <> 
         <div className='button-container'>
             <button type="button" className="main-add-btn" onClick={handleShow}>
                 <span className="btn_text">Add Car</span>

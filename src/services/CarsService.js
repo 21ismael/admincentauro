@@ -49,7 +49,7 @@ class CarService {
                 },
                 body: JSON.stringify(formData),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to update car');
             }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FleetService from '../../services/FleetService';
 import AddFleetCar from './AddFleetCar';
 import deleteIcon from '../../assets/images/delete.svg';
+import EditFleetCar from './EditFleetCar';
 
 export default function Fleet() {
 
@@ -64,6 +65,7 @@ export default function Fleet() {
                                     </button>
                                 </td>
                                 <td style={{ width: "60px" }}>
+                                    <EditFleetCar fleet={fleet} data={data} setData={setData} />
                                 </td>
                             </tr>
                         ))}

@@ -9,12 +9,19 @@ export const EditCar = ({ car, data, setData, offices }) => {
 
     const [formData, setFormData] = useState({
         id: car.id,
-        brand: car.brand,
-        model: car.model,
         licensePlate: car.licensePlate,
-        dailyRate: car.dailyRate,
+        fleetId: car.fleetId, 
         officeId: car.officeId
     });
+
+    /*
+    {
+  "id": 2,
+  "licensePlate": "string",
+  "officeId": 1,
+  "fleetId": 3
+}
+    */
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -71,7 +78,8 @@ export const EditCar = ({ car, data, setData, offices }) => {
                             type="text"
                             className="form-control"
                             name="brand"
-                            value={formData.brand}
+                            disabled
+                            value={car.fleet.brand}
                             onChange={handleChange}
                         />
                     </div>
@@ -82,7 +90,8 @@ export const EditCar = ({ car, data, setData, offices }) => {
                             type="text"
                             className="form-control"
                             name="model"
-                            value={formData.model}
+                            disabled
+                            value={car.fleet.model}
                             onChange={handleChange}
                         />
                     </div>
@@ -104,7 +113,8 @@ export const EditCar = ({ car, data, setData, offices }) => {
                                 type="number"
                                 className="form-control"
                                 name="dailyRate"
-                                value={formData.dailyRate}
+                                disabled
+                                value={car.fleet.dailyRate}
                                 min={0}
                                 onChange={handleChange}
                             />

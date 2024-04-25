@@ -8,6 +8,8 @@ import UserService from '../../services/UserService';
 
 export default function EditReservation({ reservation, data, setData }) {
 
+    console.log(reservation);
+
     const carService = new CarsService();
     const userService = new UserService();
     const reservationService = new ReservationService();
@@ -28,8 +30,8 @@ export default function EditReservation({ reservation, data, setData }) {
     const [formData, setFormData] = useState({
         licensePlate: reservation.car.licensePlate,
         identityNumber: reservation.user.identityNumber,
-        startDate: reservation.startDate,
-        endDate: reservation.endDate
+        startDate: reservation.pickupDate,
+        endDate: reservation.returnDate
     });
 
     const [show, setShow] = useState(false);
