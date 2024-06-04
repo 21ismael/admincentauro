@@ -7,7 +7,7 @@ export default function Header() {
         <>
             <header>
                 <nav className='container'>
-                    <img src={logo} alt="logo" />
+                    <img src={logo} alt="logo"/>
                     <ul>
                         <li><NavLink to='./cars'>Cars</NavLink></li>
                         <li><NavLink to='./fleet'>Fleet</NavLink></li>
